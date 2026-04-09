@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEIS 분할점수 계산기 — 다운로드</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #EBE8E3;
+      color: #1A1A1A;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 24px 48px;
+      flex: 1;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #6B6861;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    .version-badge {
+      display: inline-block;
+      font-size: 11px;
+      color: #6B6861;
+      border: 1px solid #D4D1C9;
+      padding: 2px 8px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* Download section */
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #1A1A1A;
+      margin-bottom: 16px;
+    }
+
+    .download-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+
+    .download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: #1A1A1A;
+      color: #EBE8E3;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .download-btn:hover { opacity: 0.88; }
+
+    .download-btn .os { display: flex; align-items: center; gap: 12px; }
+    .download-btn .meta { font-size: 11px; opacity: 0.5; }
+
+    .download-btn.secondary {
+      background: transparent;
+      color: #1A1A1A;
+      border: 1px solid #D4D1C9;
+    }
+
+    .download-btn.secondary:hover { border-color: #1A1A1A; }
+
+    /* Info sections */
+    .info-section {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #D4D1C9;
+    }
+
+    .info-section:last-child {
+      border-bottom: none;
+    }
+
+    .info-section h2 {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .info-section p,
+    .info-section li {
+      font-size: 13px;
+      color: #6B6861;
+      line-height: 1.7;
+    }
+
+    .info-section ol {
+      padding-left: 20px;
+    }
+
+    .info-section ol li {
+      margin-bottom: 4px;
+    }
+
+    .info-section strong {
+      color: #1A1A1A;
+      font-weight: 500;
+    }
+
+    .step-group {
+      margin-bottom: 16px;
+    }
+
+    .step-group-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1A1A1A;
+      margin-bottom: 6px;
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .feature {
+      padding: 12px 16px;
+      border: 1px solid #D4D1C9;
+      font-size: 12px;
+      color: #6B6861;
+    }
+
+    .feature strong {
+      display: block;
+      color: #1A1A1A;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 11px;
+      color: #6B6861;
+      border-top: 1px solid #D4D1C9;
+    }
+
+    footer a {
+      color: #1A1A1A;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Auto-detect OS highlight */
+    .download-btn.recommended {
+      position: relative;
+    }
+
+    .rec-badge {
+      font-size: 10px;
+      background: #EBE8E3;
+      color: #1A1A1A;
+      padding: 2px 6px;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>NEIS 분할점수 계산기 <span class="version-badge" id="version">v0.1.0</span></h1>
+    <p class="subtitle">
+      문항별 배점과 예상 정답률만 입력하면, NEIS "추정분할점수 산출관리"에<br>
+      그대로 복붙할 수 있는 15칸 표를 자동 생성합니다.
+    </p>
+
+    <div class="section-label">다운로드</div>
+    <div class="download-grid" id="downloads">
+      <a class="download-btn" id="dl-win" href="#">
+        <span class="os">Windows</span>
+        <span class="meta">.exe 설치 파일</span>
+      </a>
+      <a class="download-btn secondary" id="dl-mac-arm" href="#">
+        <span class="os">macOS (Apple Silicon)</span>
+        <span class="meta">.dmg</span>
+      </a>
+      <a class="download-btn secondary" id="dl-mac-intel" href="#">
+        <span class="os">macOS (Intel)</span>
+        <span class="meta">.dmg</span>
+      </a>
+      <a class="download-btn secondary" id="dl-linux" href="#">
+        <span class="os">Linux</span>
+        <span class="meta">.AppImage</span>
+      </a>
+    </div>
+
+    <div class="info-section">
+      <h2>설치 시 보안 경고 안내</h2>
+      <p style="margin-bottom: 12px;">개인 개발자가 제작한 무료 소프트웨어로, 상용 코드 서명이 없습니다. 경고가 표시되지만 정상적인 앱입니다.</p>
+
+      <div class="step-group">
+        <div class="step-group-title">Windows</div>
+        <ol>
+          <li>"Windows의 PC 보호" 화면에서 <strong>"추가 정보"</strong> 클릭</li>
+          <li><strong>"실행"</strong> 클릭</li>
+        </ol>
+      </div>
+
+      <div class="step-group">
+        <div class="step-group-title">macOS</div>
+        <ol>
+          <li>"확인되지 않은 개발자" 경고 시 <strong>시스템 설정 > 개인정보 보호 및 보안</strong> 이동</li>
+          <li>하단 <strong>"확인 없이 열기"</strong> 클릭</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>주요 기능</h2>
+      <div class="features">
+        <div class="feature"><strong>1PL Rasch 모델</strong>정답률만 입력하면 자동 계산</div>
+        <div class="feature"><strong>NEIS 복사</strong>15칸 값을 한 번에 복붙</div>
+        <div class="feature"><strong>자동 업데이트</strong>새 버전이 나오면 앱에서 알림</div>
+        <div class="feature"><strong>완전 오프라인</strong>시험 데이터가 외부로 전송되지 않음</div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <h2>업데이트</h2>
+      <p>설치 후에는 앱 내에서 <strong>자동 업데이트</strong>가 지원됩니다. 새 버전이 나오면 앱 상단에 알림이 표시되며, 클릭 한 번으로 업데이트됩니다.</p>
+    </div>
+  </div>
+
+  <footer>
+    Made by <a href="https://dorm-green.vercel.app/" target="_blank" rel="noopener noreferrer">DoRm</a>
+  </footer>
+
+  <script>
+    const REPO = 'shinnanchanguk/neis-cutscore-releases';
+
+    async function loadRelease() {
+      try {
+        const res = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+        if (!res.ok) return;
+        const release = await res.json();
+        const assets = release.assets || [];
+        const tag = release.tag_name;
+
+        document.getElementById('version').textContent = tag;
+
+        const find = (keyword) => {
+          const a = assets.find(a => a.name.includes(keyword));
+          return a ? a.browser_download_url : '#';
+        };
+
+        document.getElementById('dl-win').href = find('x64-setup.exe');
+        document.getElementById('dl-mac-arm').href = find('aarch64.dmg');
+        document.getElementById('dl-mac-intel').href = find('x64.dmg');
+        document.getElementById('dl-linux').href = find('AppImage');
+
+        // Highlight current OS
+        const ua = navigator.userAgent.toLowerCase();
+        let recId = null;
+        if (ua.includes('win')) recId = 'dl-win';
+        else if (ua.includes('mac')) recId = 'dl-mac-arm';
+        else if (ua.includes('linux')) recId = 'dl-linux';
+
+        if (recId) {
+          const btn = document.getElementById(recId);
+          btn.classList.remove('secondary');
+          btn.classList.add('recommended');
+          const badge = document.createElement('span');
+          badge.className = 'rec-badge';
+          badge.textContent = '사용 중인 OS';
+          btn.querySelector('.os').appendChild(badge);
+
+          // Move to top
+          btn.parentElement.prepend(btn);
+        }
+      } catch (e) {
+        console.error('Failed to load release info:', e);
+      }
+    }
+
+    loadRelease();
+  </script>
+</body>
+</html>
