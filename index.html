@@ -5,10 +5,25 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>추정 분할 점수 계산기</title>
-    <script type="module" crossorigin src="/neis-cutscore-releases/assets/index-WOTL5Jib.js"></script>
+    <script type="module" crossorigin src="/neis-cutscore-releases/assets/index-BE-h9tIv.js"></script>
     <link rel="stylesheet" crossorigin href="/neis-cutscore-releases/assets/index-BU4wIydz.css">
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Fallback: if the app fails to render after update (stale cache),
+      // show a recovery UI instead of a blank white screen.
+      setTimeout(function() {
+        var root = document.getElementById('root');
+        if (root && root.children.length === 0) {
+          root.innerHTML = '<div style="padding:40px;font-family:sans-serif;text-align:center">' +
+            '<h2 style="margin-bottom:12px">앱을 불러오는 중 문제가 발생했습니다</h2>' +
+            '<p style="color:#666;margin-bottom:20px">업데이트 후 캐시 문제일 수 있습니다.</p>' +
+            '<button onclick="localStorage.clear();location.reload()" ' +
+            'style="padding:10px 24px;font-size:14px;cursor:pointer;background:#1a1a1a;color:#fff;border:none;border-radius:4px">' +
+            '초기화 후 새로고침</button></div>';
+        }
+      }, 8000);
+    </script>
   </body>
 </html>
